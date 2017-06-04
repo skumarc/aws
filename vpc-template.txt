@@ -1,0 +1,22 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters" : {
+        "CIDRRange" : {
+            "Type" : "String",
+            "Default" : "10.251.0.0",
+            "AllowedValues" : ["10.250.0.0","10.251.0.0"]
+        }
+    },
+    "Resources" : {
+        "VPCBase" :{
+        "Type" : "AWS::EC2::VPC",
+        "Properties" : {
+            "CidrBlock" : {"Fn::Join" : ["",[{ "Ref" : "CIDRRange"}, "/16"]]},
+              "EnableDnsSupport": "True",
+              "EnableDnsHostnames": "True",
+              "Tags" : [{"Key" : "name", "Value" :{"Fn::Join" : ["", [{"Ref": "AWS::StackName"}, "-VPC"]]}}]
+            
+        }
+        }    
+    }
+   }
